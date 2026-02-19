@@ -30,10 +30,14 @@ Profile: Highest window-shopping ratio. They use the platform primarily for brow
 
 5. Predictive Performance (Supervised Learning)
 The project compared three different architectures to predict the "Breaking Point" (Churn). All models demonstrated that consumer departure is a highly predictable event.
-Model	Accuracy	Precision (Churn)	Recall (Churn)
-Random Forest (Optimized)	97.0%	0.92	0.87
-XGBoost (Optimized)	97.0%	0.92	0.87
-Sequential Neural Network	96.0%	0.89	0.87
+## Model Performance Comparison
+
+| Model                         | Accuracy | Precision (Churn) | Recall (Churn) |
+|--------------------------------|----------|------------------|----------------|
+| Random Forest (Optimized)     | 97.0%    | 0.92             | 0.87           |
+| XGBoost (Optimized)           | 97.0%    | 0.92             | 0.87           |
+| Sequential Neural Network     | 96.0%    | 0.89             | 0.87           |
+
 Key Finding: Feature importance analysis revealed that engagement_score and days_since_last_purchase are the primary drivers of disengagement. The system identifies a "fade-out" in activity long before the user actually decides to leave.
 
 6. Technical Stack
