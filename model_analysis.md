@@ -36,14 +36,22 @@ A Random Forest is an ensemble method. Instead of relying on one massive decisio
 At the core of the Random Forest is the mathematical decision of *where to split the data*. The tree evaluates a feature (e.g., `engagement_score`) and looks for a threshold that creates the purest separation of classes. It measures "impurity" using the **Gini Index** or **Entropy**.
 
 **Gini Impurity** for a given node is calculated as:
-$$ Gini = 1 - \sum_{i=1}^{C} (p_i)^2 $$
+
+$$
+Gini = 1 - \sum_{i=1}^{C} (p_i)^2
+$$
+
 *   Where $p_i$ is the probability of an item belonging to class $i$ (Stay vs. Leave).
 *   If a node perfectly separates churners from loyalists, the Gini impurity is 0.
 
 **Bagging (Bootstrap Aggregating):**
 The "Random" in Random Forest comes from how it selects data. For a dataset of size $N$, it randomly samples $N$ observations *with replacement* to train each tree. 
 Mathematically, as $N$ approaches infinity, the probability that a specific customer is *not* picked for a specific tree is:
-$$ \lim_{N \to \infty} \left(1 - \frac{1}{N}\right)^N = \frac{1}{e} \approx 0.368 $$
+
+$$
+\lim_{N \to \infty} \left(1 - \frac{1}{N}\right)^N = \frac{1}{e} \approx 0.368
+$$
+
 This means ~36.8% of the data is left out ("Out-Of-Bag") for every tree, preventing the model from overfitting and making it highly reliable at predicting unseen consumer behavior.
 
 ---
@@ -57,12 +65,19 @@ While Random Forest builds trees independently, XGBoost builds trees *sequential
 
 ### The Mathematics
 XGBoost minimizes a specific **Objective Function** at each step:
-$$ Obj^{(t)} = \sum_{i=1}^{n} L(y_i, \hat{y}_i^{(t)}) + \sum_{i=1}^{t} \Omega(f_i) $$
+
+$$
+Obj^{(t)} = \sum_{i=1}^{n} L(y_i, \hat{y}_i^{(t)}) + \sum_{i=1}^{t} \Omega(f_i)
+$$
 
 1.  **The Loss Function ($L$):** For our binary churn prediction, this is usually **Log Loss** (Binary Crossentropy). It measures how far the predicted probability is from the actual label (0 or 1).
 2.  **The Regularization Term ($\Omega$):** This mathematically punishes the model for creating trees that are too complex. It prevents the model from "memorizing" individual customer quirks.
-    $$ \Omega(f) = \gamma T + \frac{1}{2} \lambda \sum_{j=1}^{T} w_j^2 $$
-    *(Where $T$ is the number of leaves, and $w_j$ are the leaf weights).*
+
+$$
+\Omega(f) = \gamma T + \frac{1}{2} \lambda \sum_{j=1}^{T} w_j^2
+$$
+
+*(Where $T$ is the number of leaves, and $w_j$ are the leaf weights).*
 
 XGBoost uses a second-order Taylor expansion to quickly approximate the loss function, making it incredibly fast and precise at calculating the exact point of consumer disengagement.
 
@@ -78,15 +93,25 @@ A Neural Network attempts to map inputs to outputs through layers of artificial 
 ### The Mathematics
 **1. Forward Propagation:**
 Data flows through the network. For a given neuron $j$, the output $a_j$ is calculated by multiplying inputs $x_i$ by weights $w_{ij}$, adding a bias $b_j$, and passing it through an **Activation Function** ($f$):
-$$ a_j = f \left( \sum_{i} w_{ij} x_i + b_j \right) $$
+
+$$
+a_j = f \left( \sum_{i} w_{ij} x_i + b_j \right)
+$$
 
 *   **Hidden Layers (ReLU):** We used the Rectified Linear Unit, $f(z) = \max(0, z)$. This allows the network to learn non-linear patterns (e.g., the compounding effect of low engagement *combined* with high regret).
 *   **Output Layer (Sigmoid):** To predict a binary outcome, the final layer uses a Sigmoid function to "squash" the output into a probability between 0 and 1:
-    $$ \sigma(z) = \frac{1}{1 + e^{-z}} $$
+
+$$
+\sigma(z) = \frac{1}{1 + e^{-z}}
+$$
 
 **2. Backpropagation & Optimization (Adam):**
 The network evaluates its error using **Binary Crossentropy**:
-$$ Loss = -\frac{1}{N} \sum_{i=1}^{N} \left[ y_i \log(\hat{y}_i) + (1 - y_i) \log(1 - \hat{y}_i) \right] $$
+
+$$
+Loss = -\frac{1}{N} \sum_{i=1}^{N} \left[ y_i \log(\hat{y}_i) + (1 - y_i) \log(1 - \hat{y}_i) \right]
+$$
+
 It then uses calculus (the chain rule) to calculate the gradient of the loss with respect to every weight. The **Adam Optimizer** updates the weights to minimize this loss, effectively "learning" the exact behavioral blueprint of a churner.
 
 ---
