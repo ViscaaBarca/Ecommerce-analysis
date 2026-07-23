@@ -1,0 +1,13 @@
+pandas
+numpy
+matplotlib
+seaborn
+scikit-learn
+xgboost
+tensorflow
+streamlit
+pandas
+langchain
+langchain_community
+langchain_experimental
+sqlalchemy
